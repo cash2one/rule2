@@ -189,7 +189,7 @@ def rank_abnormal_sql():
     return ""
 
 
-def calculate_days_number_sql(auction_id=10000, day=60):
+def calculate_days_number_sql(auction_id, day=60):
     """
     计算最近60天的销售额                             【因为数据不全的原因，暂时用的是去年这个时间的数据】
     """
