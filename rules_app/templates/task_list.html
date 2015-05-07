@@ -1,0 +1,84 @@
+{% extends "base/base.html" %}
+
+{% block Title %}
+    <title>规则列表</title>
+{% endblock %}
+
+{% block title  %}
+    <strong>规则列表</strong>
+{% endblock %}
+
+{% block main %}
+    <div class="col-lg-12">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>规则列表</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="dd" id="nestable2">
+                    <ol class="dd-list">
+                        <li class="dd-item" data-id="1">
+                            <div class="dd-handle">
+                                <span class="label label-info"><i class="fa fa-users"></i></span> 规则列表展示
+                            </div>
+                            <ol class="dd-list">
+                                <li class="dd-item" data-id="2">
+                                    <a class="btn" href="result_list_SSP01R2015">
+                                        <span class="label label-info"><i class="fa fa-cog"></i></span>SSP01R2015--分析各个产品上架情况</a>
+                                </li>
+                                <li class="dd-item" data-id="2">
+                                    <a class="btn" href="result_list_SSP02R2015">
+                                        <span class="label label-info"><i class="fa fa-cog"></i></span>SSP02R2015--分析各个商品的季节性以及未来销售，判断库存是否安全</a>
+                                </li>
+                                <li class="dd-item" data-id="2">
+                                    <a class="btn" href="result_list_SSP03R2015">
+                                        <span class="label label-info"><i class="fa fa-cog"></i></span>SSP03R2015--判断商品的流量是否异常</a>
+                                </li>
+                                <li class="dd-item" data-id="2">
+                                    <a class="btn" href="result_list_SPP01R2015">
+                                        <span class="label label-info"><i class="fa fa-cog"></i></span>SPP01R2015--判断商品转化率是否异常</a>
+                                </li>
+                                <li class="dd-item" data-id="2">
+                                    <a class="btn" href="result_list_SPP02R2015">
+                                        <span class="label label-info"><i class="fa fa-cog"></i></span>SPP02R2015--分析商家商品的销售趋势以及行业的销售趋势</a>
+                                </li>
+                                <!--<li class="dd-item" data-id="2">-->
+                                    <!--<a class="btn" href="result_list_SPP03R2015">-->
+                                        <!--<span class="label label-info"><i class="fa fa-cog"></i></span>SPP03R2015--判断商品行业排名是否异常</a>-->
+                                <!--</li>-->
+                                <li class="dd-item" data-id="2">
+                                    <a class="btn" href="result_list_fx_one">
+                                        <span class="label label-info"><i class="fa fa-cog"></i></span>分析类目的季节性以及商家的库存状态</a>
+                                </li>
+                                <!--<li class="dd-item" data-id="2">-->
+                                    <!--<a class="btn" href="result_list_fx_two">-->
+                                        <!--<span class="label label-info"><i class="fa fa-cog"></i></span>分析主推类目以及各类目的主推产品</a>-->
+                                <!--</li>-->
+                                <!--<li class="dd-item" data-id="2">-->
+                                    <!--<a class="btn" href="result_list_fx_three">-->
+                                        <!--<span class="label label-info"><i class="fa fa-cog"></i></span>产品需要上架，匹配未上架的商家名单</a>-->
+                                <!--</li>-->
+                                <!--<li class="dd-item" data-id="2">-->
+                                    <!--<a class="btn" href="result_list_fx_four">-->
+                                        <!--<span class="label label-info"><i class="fa fa-cog"></i></span>产品需要上架，匹配上架的商家名单</a>-->
+                                <!--</li>-->
+                                <!--<li class="dd-item" data-id="2">-->
+                                    <!--<a class="btn" href="result_list_fx_five">-->
+                                        <!--<span class="label label-info"><i class="fa fa-cog"></i></span>主推类目中，行业趋势上升， 但实际销量不能达到平均趋势[未上架的商家名单]</a>-->
+                                <!--</li>-->
+                                <!--<li class="dd-item" data-id="2">-->
+                                    <!--<a class="btn" href="result_list_fx_seven">-->
+                                        <!--<span class="label label-info"><i class="fa fa-cog"></i></span>主推类目中，行业趋势上升， 但实际销量不能达到平均趋势[已上架商家名单]</a>-->
+                                <!--</li>-->
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="/static/js/plugins/nestable/jquery.nestable.js"></script>
+{% endblock %}

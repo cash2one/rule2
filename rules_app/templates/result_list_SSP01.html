@@ -1,0 +1,52 @@
+{% extends "base/base.html" %}
+
+{% block Title %}
+    <title>规则SSP01结果</title>
+{% endblock %}
+
+{% block css %}
+    <link href="/static/mrjsontable/css/mrjsontable.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block li %}
+    <li class="active"><a href="result_list_SSP01R2015">执行结果</a></li>
+{% endblock %}
+
+{% block title  %}
+    <strong>执行结果</strong>
+{% endblock %}
+
+{% block main %}
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-sm-12 b-r">
+                        <div id="mydiv"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(function () {
+            $("#mydiv").mrjsontable({
+                tableClass: "my-table",
+                pageSize: 60,
+                columns: [
+                    new $.fn.mrjsontablecolumn({heading: "产品号", data: "ItemNum"}),
+                    new $.fn.mrjsontablecolumn({heading: "上架商品数", data: "ItemStoreNumber", type: "float", sortable: true, starthidden: false}),
+                    new $.fn.mrjsontablecolumn({heading: "备注", data: "Tag", starthidden: false})
+                ],
+                data: {% autoescape on %}
+                    {{Result|safe}}
+                {% endautoescape %}
+            });
+        });
+    </script>
+    <script type="text/javascript" src="/static/mrjsontable/scripts/mrjsontable.js"></script>
+
+{% endblock %}

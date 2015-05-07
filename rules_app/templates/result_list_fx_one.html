@@ -1,0 +1,69 @@
+{% extends "base/base.html" %}
+
+{% block Title %}
+    <title>规则fx_one结果</title>
+{% endblock %}
+
+{% block css %}
+    <link href="/static/mrjsontable/css/mrjsontable.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block li %}
+    <li class="active"><a href="result_list_fx_one">执行结果</a></li>
+{% endblock %}
+
+{% block title %}
+    <strong>执行结果</strong>
+{% endblock %}
+
+{% block main %}
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-sm-12 b-r">
+                        <div id="mydiv"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(function () {
+            $("#mydiv").mrjsontable({
+                tableClass: "my-table",
+                pageSize: 60,
+                columns: [
+                    new $.fn.mrjsontablecolumn({heading: "类目ID", data: "CategoryId", sortable: true}),
+                    new $.fn.mrjsontablecolumn({heading: "商品ID", data: "AuctionId", sortable: true, starthidden: false}),
+                    new $.fn.mrjsontablecolumn({heading: "商家昵称", data: "SellerNick", sortable: true, starthidden: false}),
+                    new $.fn.mrjsontablecolumn({heading: "行业斜率", data: "CategorySlopes", sortable: true, starthidden: true}),
+                    new $.fn.mrjsontablecolumn({heading: "行业走势", data: "Trend", sortable: true, starthidden: true}),
+                    new $.fn.mrjsontablecolumn({heading: "库存", data: "Store", sortable: true, starthidden: true}),
+                    new $.fn.mrjsontablecolumn({heading: "未来销量", data: "FutureNumber", sortable: true, starthidden: true}),
+                    new $.fn.mrjsontablecolumn({heading: "库存情况", data: "TagStore", sortable: true, starthidden: false}),
+                ],
+                data: [
+                    {% for temp in Result %}
+                        {% for temp1 in temp.SellerAuction %}
+                        {
+                            'AuctionId': '{{temp1.AuctionId}}',
+                            'SellerNick':'{{temp1.SellerNick}}',
+                            'CategoryId': '{{temp.CategoryId}}',
+                            'Trend': '{{temp.Trend}}',
+                            'CategorySlopes': '{{temp.CategorySlopes}}',
+                            'Store':'{{temp1.Store}}',
+                            'FutureNumber': '{{temp1.FutureNumber}}',
+                            'TagStore': '{{temp1.TagStore}}'
+                        },
+                        {% endfor %}
+                    {% endfor %}
+                ]
+            });
+        });
+    </script>
+    <script type="text/javascript" src="/static/mrjsontable/scripts/mrjsontable.js"></script>
+{% endblock %}

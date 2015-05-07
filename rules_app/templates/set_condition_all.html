@@ -1,0 +1,89 @@
+{% extends "base/base.html" %}
+
+{% block Title %}
+    <title>设定规则</title>
+{% endblock %}
+
+{% block title %}
+    <strong>设定规则</strong>
+{% endblock %}
+
+{% block main %}
+    <div class="col-sm-12 b-r">
+        <form name="form" role="form" action="" method="post">
+            <div class="page-header">
+                <h3>设定规则</h3>
+            </div>
+            <div class="text-left">
+                <button type="button" class="btn btn-small btn-primary" onClick="add();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>点击添加</button>
+                <button type="button" class="btn btn-small btn-primary" onClick="del();"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>点击删除</button>
+            </div>
+
+            <table id="tab" class="table table-hover">
+                <thread>
+                    <tr>
+                        <th width="9%"><input type="checkbox" id="delall" onclick="alldell()"></th>
+                        <th width="30%">函 数</th>
+                        <th width="30%">参 数</th>
+                        <!--<th width="30%">默认参数</th>-->
+                    </tr>
+                </thread>
+            </table>
+            <br />
+            <div class="hr-line-dashed"></div>
+            <div class="col-sm-12">
+                <label class="col-sm-2">命名规则：</label>
+                <div class="col-sm-4"><input type="text" name="rule_name" class="" placeholder="Type something…"></div>
+                <label class="col-sm-2">规则id：</label>
+                <div class="col-sm-4"><input type="text" name="rule_id" class="" placeholder="Type something…"></div>
+            </div>
+            <br />
+            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确 定</strong></button>
+        </form>
+    </div>
+
+{% endblock %}
+
+{% block js %}
+    <script language=javascript src="/static/js/rules/{{Which}}.js"></script>
+    <script>
+        function changeOtd2(){
+            if (document.getElementsByName("infoName_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].selectedIndex == 1){
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].length = {{total_auction}};
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].selectedIndex = 0;
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[0].text = "全部";
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[0].value = "all";
+                {% for temp in AllItem.Auction %}
+                    document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[{{temp.Id}}].text = "{{temp.AuctionId}}";
+                    document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[{{temp.Id}}].value = "{{temp.AuctionId}}";
+                {% endfor %}
+            }
+            if (document.getElementsByName("infoName_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].selectedIndex == 2){
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].length = {{total_item}};
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].selectedIndex = 0;
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[0].text = "全部";
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[0].value = "all";
+                {% for temp in AllItem.Item %}
+                    document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[{{temp.Id}}].text = "{{temp.AuctionId}}";
+                    document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[{{temp.Id}}].value = "{{temp.AuctionId}}";
+                {% endfor %}
+            }
+            if (document.getElementsByName("infoName_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].selectedIndex == 3){
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].length = {{total_category}};
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].selectedIndex = 0;
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[0].text = "全部";
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[0].value = "all";
+                {% for temp in AllItem.Category %}
+                    document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[{{temp.Id}}].text = "{{temp.AuctionId}}";
+                    document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[{{temp.Id}}].value = "{{temp.AuctionId}}";
+                {% endfor %}
+            }
+            if (document.getElementsByName("infoName_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].selectedIndex > 3){
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].length = 1;
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].selectedIndex = 0;
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[0].text = "选择上一步的输出作为输入";
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[0].value = "-1";
+            }
+        }
+    </script>
+{% endblock %}

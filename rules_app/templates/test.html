@@ -1,0 +1,60 @@
+{% extends "base/base.html" %}
+
+{% block Title %}
+    <title>test</title>
+{% endblock %}
+
+{% block css %}
+    <link href="/static/mrjsontable/css/mrjsontable.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block li %}
+    <li class="active"><a href="result_list_SPP02R2015">执行结果</a></li>
+{% endblock %}
+
+{% block title  %}
+    <strong>规则列表</strong>
+{% endblock %}
+
+{% block main %}
+    <div class="col-lg-12">
+        <div class="ibox ">
+            <div class="ibox-title">
+                <h5>Rule list</h5>
+            </div>
+            <div class="ibox-content">
+                <div class="dd" id="nestable2">
+                    <ol class="dd-list">
+                        <li class="dd-item" data-id="1">
+                            <div class="dd-handle">
+                                <span class="label label-info"><i class="fa fa-users"></i></span> Cras ornare tristique.
+                            </div>
+                            <ol class="dd-list">
+                                <li class="dd-item" data-id="2">
+                                    <a class="btn" href="result_list_SSP01R2015">
+                                        <span class="label label-info"><i class="fa fa-cog"></i></span>SSP01R2015--分析各个产品上架情况</a>
+                                </li>
+                                <li class="dd-item" data-id="2">
+                                    <a class="btn" href="result_list_SSP02R2015">
+                                        <span class="label label-info"><i class="fa fa-cog"></i></span>SSP02R2015--分析各个商品的季节性以及未来销售，判断库存是否安全</a>
+                                </li>
+                                <li class="dd-item" data-id="2">
+                                    <a class="btn" href="result_list_SSP03R2015">
+                                        <span class="label label-info"><i class="fa fa-cog"></i></span>SSP03R2015--判断产品的流量是否异常</a>
+                                </li>
+                                <li class="dd-item" data-id="2">
+                                    <a class="btn" href="result_list_SPP02R2015">
+                                        <span class="label label-info"><i class="fa fa-cog"></i></span>SPP02R2015--分析商家商品的销售趋势以及行业的销售趋势</a>
+                                </li>
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script src="/static/js/plugins/nestable/jquery.nestable.js"></script>
+{% endblock %}

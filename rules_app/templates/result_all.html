@@ -1,0 +1,64 @@
+{% extends "base/base.html" %}
+
+{% block Title %}
+    <title>规则结果</title>
+{% endblock %}
+
+{% block css %}
+    <link href="/static/mrjsontable/css/mrjsontable.css" rel="stylesheet"/>
+{% endblock %}
+
+{% block li %}
+    <li class="active"><a href="all">执行结果</a></li>
+{% endblock %}
+
+{% block title  %}
+    <strong>执行结果</strong>
+{% endblock %}
+
+{% block main %}
+    <div class="col-lg-12">
+        <div class="ibox float-e-margins">
+            <div class="ibox-content">
+                <div class="row">
+                    <div class="col-sm-12 b-r">
+                        <div id="mydiv"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript">
+        $(function () {
+            $("#mydiv").mrjsontable({
+                tableClass: "my-table",
+                pageSize: 60,
+                columns: [
+                    new $.fn.mrjsontablecolumn({heading: "类目ID", data: "CategoryId", sortable: true}),
+                    new $.fn.mrjsontablecolumn({heading: "产品ID", data: "ItemNum", sortable: true}),
+                    new $.fn.mrjsontablecolumn({heading: "商品ID", data: "AuctionId", sortable: true, starthidden: false}),
+                    new $.fn.mrjsontablecolumn({heading: "商家昵称", data: "SellerNick", sortable: true, starthidden: false}),
+                    new $.fn.mrjsontablecolumn({heading: "产品上架商家数", data: "UpNumber", sortable: true, starthidden: true}),
+                    new $.fn.mrjsontablecolumn({heading: "行业斜率", data: "CategorySlopes", sortable: true, starthidden: true}),
+                    new $.fn.mrjsontablecolumn({heading: "行业走势", data: "Trend", sortable: true, starthidden: true}),
+                    new $.fn.mrjsontablecolumn({heading: "商品斜率", data: "SellerSlopes", sortable: true, starthidden: true}),
+                    new $.fn.mrjsontablecolumn({heading: "分销商的销售斜率", data: "CategorySlopesFX", sortable: true, starthidden: false}),
+                    new $.fn.mrjsontablecolumn({heading: "库存", data: "Store", sortable: true, starthidden: true}),
+                    new $.fn.mrjsontablecolumn({heading: "未来销量", data: "FutureNumber", sortable: true, starthidden: true}),
+                    new $.fn.mrjsontablecolumn({heading: "库存情况", data: "TagStore", sortable: true, starthidden: false}),
+                    new $.fn.mrjsontablecolumn({heading: "是否异常", data: "IsAbnormal", sortable: true, starthidden: false}),
+                    new $.fn.mrjsontablecolumn({heading: "上架商品数", data: "ItemStoreNumber", type: "float", sortable: true, starthidden: false}),
+                    new $.fn.mrjsontablecolumn({heading: "备注", data: "Tag", starthidden: true}),
+                    new $.fn.mrjsontablecolumn({heading: "是否安全库存", data: "SafeStore", sortable: true, starthidden: false})
+                ],
+                data: {% autoescape on %}
+                    {{Result|safe}}
+                {% endautoescape %}
+            });
+        });
+    </script>
+    <script type="text/javascript" src="/static/mrjsontable/scripts/mrjsontable.js"></script>
+{% endblock %}

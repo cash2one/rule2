@@ -1,0 +1,139 @@
+{% extends "base/base.html" %}
+
+{% block Title %}
+    <title>设定规则</title>
+{% endblock %}
+
+{% block title %}
+    <strong>设定规则</strong>
+{% endblock %}
+
+{% block main %}
+    <div class="col-sm-12 b-r">
+        <form name="form" role="form" action="" method="post">
+            <div class="page-header">
+                <h3>设定规则</h3>
+                {% if Error %}
+                    <p style="color: red;">Please submit a search term.</p>
+                {% endif %}
+            </div>
+            <div class="text-left">
+                <button type="button" class="btn btn-small btn-primary" onClick="add();"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>点击添加</button>
+                <button type="button" class="btn btn-small btn-primary" onClick="del();"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span>点击删除</button>
+            </div>
+
+            <table id="tab" class="table table-hover">
+                <thread>
+                    <tr>
+                        <th width="9%"><input type="checkbox" id="delall" onclick="alldell()"></th>
+                        <th width="30%">函 数</th>
+                        <th width="30%">参 数</th>
+                    </tr>
+                    {% for temp in Chosed %}
+                    <tr>
+                        <td ><input type="checkbox" class="check" onclick="ccolor()" name="checkItem"></td>
+                        <td >
+                            <select onChange="changeOtd2()" name="infoName_txt" id="infoName_txt">
+                                <option selected value="{{temp.Func}}">在这之前您选择的是：{{temp.Value}}</option>
+                                <option value="select_auction">选择需要分析的商品</option>
+                                <option value="select_itemnum">选择需要分析的产品</option>
+                                <option value="select_object_category">选择需要分析的类目</option>
+                                <option value="get_auction_number">抽取各个商品的销售数量</option>
+                                <option value="calculate_seller_trend">根据商品的销售数量计算销售趋势</option>
+                                <option value="category_trend">计算类目的行业趋势</option>
+                                <option value="fenxiao_category_trend">计算自有的销售趋势</option>
+                                <option value="forecast_number">根据行业趋势预测未来销售数量（商家）</option>
+                                <option value="cal_store_number">根据商品号抽取商品库存</option>
+                                <option value="item_auction_number">获取具体产品下的上架商品数量</option>
+                                <option value="uv_abnormal_find_object">获取商品的每日流量</option>
+                                <option value="ctr_abnormal_find_object">获取商品的每日转化率</option>
+                                <option value="rank_abnormal_find_object">获取商品的每日行业排名数据</option>
+                                <option value="forecast_R1_number">根据行业趋势预测未来销售数量（渠道商）</option>
+                                <option value="select_object_seller">获取销售类目的自有商家,及其销售的商品</option>
+                                <option value="calculate_category_number">获取各个类目的销售数量</option>
+                                <option value="calculate_main_cat">根据销售数量获取主推类目</option>
+                                <option value="calculate_main_item">根据主推类目找出主推产品</option>
+                                <option value="calculate_item_up_number">抽取各产品的上架的商家数量</option>
+                                <option value="item_need2up">抽取需要上架的产品</option>
+                                <option value="seller_need2up">抽取未上架该产品的商家名单</option>
+                                <option value="seller_have_up">抽取已经上架该类目产品的商家名单</option>
+                                <option value="seller_need2up_category">抽取未上架该类目的商家名单</option>
+                                <option value="seller_have_up_category">抽取已经上架该类目的商家名单</option>
+                                <option value="judge_abnormal">判断数据是否异常</option>
+                                <option value="final_handle">处理结果</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select type="text" class="txt" name="infoValue_txt" id="infoValue_txt">
+                                <option selected value=" ">---</option>
+                            </select>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </thread>
+            </table>
+            <!--<div class="form-group">-->
+                <!--<label class="col-sm-2 control-label">Normal</label>-->
+                <!--<div class="col-sm-6"><input type="text" class="form-control"></div>-->
+            <!--</div>-->
+            <br />
+            <button class="btn btn-sm btn-primary pull-right m-t-n-xs" type="submit"><strong>确 定</strong></button>
+        </form>
+    </div>
+    <!--<div class="col-sm-4">-->
+        <!--<h4>  </h4>-->
+        <!--<p> 在这一步之前您已经选择了: </p>-->
+        <!--<p class="text-center">-->
+            <!--<a href=""><i class="fa fa-sign-in big-icon"></i></a>-->
+            <!--{% if Tag == 1 %}-->
+                <!--{% for temp in Result %}-->
+                   <!--<p> {{temp.Func}} &nbsp;&nbsp; &nbsp;{{temp.Arg}} </p>-->
+                <!--{% endfor %}-->
+            <!--{% endif %}-->
+        <!--</p>-->
+    <!--</div>-->
+{% endblock %}
+
+{% block js %}
+    <script language=javascript src="/static/js/rules/{{Which}}.js"></script>
+    <script>
+        function changeOtd2(){
+            if (document.getElementsByName("infoName_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].selectedIndex == 1){
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].length = {{total_auction}};
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].selectedIndex = 0;
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[0].text = "全部";
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[0].value = "all";
+                {% for temp in AllItem.Auction %}
+                    document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[{{temp.Id}}].text = "{{temp.AuctionId}}";
+                    document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[{{temp.Id}}].value = "{{temp.AuctionId}}";
+                {% endfor %}
+            }
+            if (document.getElementsByName("infoName_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].selectedIndex == 2){
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].length = {{total_item}};
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].selectedIndex = 0;
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[0].text = "全部";
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[0].value = "all";
+                {% for temp in AllItem.Item %}
+                    document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[{{temp.Id}}].text = "{{temp.AuctionId}}";
+                    document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[{{temp.Id}}].value = "{{temp.AuctionId}}";
+                {% endfor %}
+            }
+            if (document.getElementsByName("infoName_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].selectedIndex == 3){
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].length = {{total_category}};
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].selectedIndex = 0;
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[0].text = "全部";
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[0].value = "all";
+                {% for temp in AllItem.Category %}
+                    document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[{{temp.Id}}].text = "{{temp.AuctionId}}";
+                    document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[{{temp.Id}}].value = "{{temp.AuctionId}}";
+                {% endfor %}
+            }
+            if (document.getElementsByName("infoName_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].selectedIndex > 3){
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].length = 1;
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].selectedIndex = 0;
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[0].text = "选择上一步的输出作为输入";
+                document.getElementsByName("infoValue_txt")[event.srcElement.parentElement.parentElement.rowIndex-1].options[0].value = "-1";
+            }
+        }
+    </script>
+{% endblock %}
